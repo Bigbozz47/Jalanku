@@ -1,185 +1,64 @@
 @extends('layouts.app')
 
 @section('content')
-{{-- <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
-        </div>
-    </div>
-</div> --}}
-
     <!-- ***** Main Banner Area Start ***** -->
     <section id="section-1">
         <div class="content-slider">
-        <input type="radio" id="banner1" class="sec-1-input" name="banner" checked>
-        <input type="radio" id="banner2" class="sec-1-input" name="banner">
-        <input type="radio" id="banner3" class="sec-1-input" name="banner">
-        <input type="radio" id="banner4" class="sec-1-input" name="banner">
+            @foreach ($provinces as $province)
+
+                <input type="radio" id="banner{{ $province->id }}" class="sec-1-input" name="banner" checked>
+
+            @endforeach
         <div class="slider">
-            <div id="top-banner-1" class="banner">
-            <div class="banner-inner-wrapper header-text">
-                <div class="main-caption">
-                <h2>Take a Glimpse Into The Beautiful Country Of:</h2>
-                <h1>Caribbean</h1>
-                <div class="border-button"><a href="about.html">Go There</a></div>
-                </div>
-                <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                    <div class="more-info">
+
+
+            @foreach ($provinces as $province)
+                <div id="top-banner-{{ $province->id }}" class="banner" style="background-image: url('{{ asset('assets/images/'.$province->image.'') }}')">
+                    <div class="banner-inner-wrapper header-text">
+                        <div class="main-caption">
+                        <h2>Take a Glimpse Into The Beautiful Province Of:</h2>
+                        <h1>{{ $province->name }}</h1>
+                        <div class="border-button"><a href="{{ route('traveling.about', $province->id) }}">Go There</a></div>
+                        </div>
+                        <div class="container">
                         <div class="row">
-                        <div class="col-lg-3 col-sm-6 col-6">
-                            <i class="fa fa-user"></i>
-                            <h4><span>Population:</span><br>44.48 M</h4>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 col-6">
-                            <i class="fa fa-globe"></i>
-                            <h4><span>Territory:</span><br>275.400 KM<em>2</em></h4>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 col-6">
-                            <i class="fa fa-home"></i>
-                            <h4><span>AVG Price:</span><br>$946.000</h4>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 col-6">
-                            <div class="main-button">
-                            <a href="about.html">Explore More</a>
+                            <div class="col-lg-12">
+                            <div class="more-info">
+                                <div class="row">
+                                <div class="col-lg-3 col-sm-6 col-6">
+                                    <i class="fa fa-user"></i>
+                                    <h4><span>Population:</span><br>{{ $province->population }} M</h4>
+                                </div>
+                                <div class="col-lg-3 col-sm-6 col-6">
+                                    <i class="fa fa-globe"></i>
+                                    <h4><span>Territory:</span><br>{{ $province->territory }} KM<em>2</em></h4>
+                                </div>
+                                <div class="col-lg-3 col-sm-6 col-6">
+                                    <i class="fa fa-home"></i>
+                                    <h4><span>AVG Price:</span><br>Rp {{ $province->avg_price }}</h4>
+                                </div>
+                                <div class="col-lg-3 col-sm-6 col-6">
+                                    <div class="main-button">
+                                    <a href="{{ route('traveling.about', $province->id) }}">Explore More</a>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
                             </div>
                         </div>
                         </div>
                     </div>
-                    </div>
                 </div>
-                </div>
-            </div>
-            </div>
-            <div id="top-banner-2" class="banner">
-            <div class="banner-inner-wrapper header-text">
-                <div class="main-caption">
-                <h2>Take a Glimpse Into The Beautiful Country Of:</h2>
-                <h1>Switzerland</h1>
-                <div class="border-button"><a href="about.html">Go There</a></div>
-                </div>
-                <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                    <div class="more-info">
-                        <div class="row">
-                        <div class="col-lg-3 col-sm-6 col-6">
-                            <i class="fa fa-user"></i>
-                            <h4><span>Population:</span><br>8.66 M</h4>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 col-6">
-                            <i class="fa fa-globe"></i>
-                            <h4><span>Territory:</span><br>41.290 KM<em>2</em></h4>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 col-6">
-                            <i class="fa fa-home"></i>
-                            <h4><span>AVG Price:</span><br>$1.100.200</h4>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 col-6">
-                            <div class="main-button">
-                            <a href="about.html">Explore More</a>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-            </div>
-            <div id="top-banner-3" class="banner">
-            <div class="banner-inner-wrapper header-text">
-                <div class="main-caption">
-                <h2>Take a Glimpse Into The Beautiful Country Of:</h2>
-                <h1>France</h1>
-                <div class="border-button"><a href="about.html">Go There</a></div>
-                </div>
-                <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                    <div class="more-info">
-                        <div class="row">
-                        <div class="col-lg-3 col-sm-6 col-6">
-                            <i class="fa fa-user"></i>
-                            <h4><span>Population:</span><br>67.41 M</h4>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 col-6">
-                            <i class="fa fa-globe"></i>
-                            <h4><span>Territory:</span><br>551.500 KM<em>2</em></h4>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 col-6">
-                            <i class="fa fa-home"></i>
-                            <h4><span>AVG Price:</span><br>$425.600</h4>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 col-6">
-                            <div class="main-button">
-                            <a href="about.html">Explore More</a>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-            </div>
-            <div id="top-banner-4" class="banner">
-            <div class="banner-inner-wrapper header-text">
-                <div class="main-caption">
-                <h2>Take a Glimpse Into The Beautiful Country Of:</h2>
-                <h1>Thailand</h1>
-                <div class="border-button"><a href="about.html">Go There</a></div>
-                </div>
-                <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                    <div class="more-info">
-                        <div class="row">
-                        <div class="col-lg-3 col-sm-6 col-6">
-                            <i class="fa fa-user"></i>
-                            <h4><span>Population:</span><br>69.86 M</h4>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 col-6">
-                            <i class="fa fa-globe"></i>
-                            <h4><span>Territory:</span><br>513.120 KM<em>2</em></h4>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 col-6">
-                            <i class="fa fa-home"></i>
-                            <h4><span>AVG Price:</span><br>$165.450</h4>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 col-6">
-                            <div class="main-button">
-                            <a href="about.html">Explore More</a>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-            </div>
+            @endforeach
+
+
         </div>
         <nav>
             <div class="controls">
-            <label for="banner1"><span class="progressbar"><span class="progressbar-fill"></span></span><span class="text">1</span></label>
-            <label for="banner2"><span class="progressbar"><span class="progressbar-fill"></span></span><span class="text">2</span></label>
-            <label for="banner3"><span class="progressbar"><span class="progressbar-fill"></span></span><span class="text">3</span></label>
-            <label for="banner4"><span class="progressbar"><span class="progressbar-fill"></span></span><span class="text">4</span></label>
+                @foreach ($provinces as $province)
+
+                    <label for="banner{{ $province->id }}"><span class="progressbar"><span class="progressbar-fill"></span></span><span class="text">{{ $province->id }}</span></label>
+                @endforeach
             </div>
         </nav>
         </div>
@@ -200,93 +79,37 @@
             <div class="col-lg-8">
             <div class="items">
                 <div class="row">
-                <div class="col-lg-12">
-                    <div class="item">
-                    <div class="row">
-                        <div class="col-lg-4 col-sm-5">
-                        <div class="image">
-                            <img src="assets/images/country-01.jpg" alt="">
-                        </div>
-                        </div>
-                        <div class="col-lg-8 col-sm-7">
-                        <div class="right-content">
-                            <h4>SWITZERLAND</h4>
-                            <span>Europe</span>
-                            <div class="main-button">
-                            <a href="about.html">Explore More</a>
+                    @foreach ($provinces as $province)
+                        <div class="col-lg-12">
+                            <div class="item">
+                            <div class="row">
+                                <div class="col-lg-4 col-sm-5">
+                                <div class="image">
+                                    <img src="{{ asset('assets/images/'.$province->image.'') }}" alt="">
+                                </div>
+                                </div>
+                                <div class="col-lg-8 col-sm-7">
+                                <div class="right-content">
+                                    <h4>{{ $province->name }}</h4>
+                                    <span>{{ $province->island }}</span>
+                                    <div class="main-button">
+                                    <a href="{{ route('traveling.about', $province->id) }}">Explore More</a>
+                                    </div>
+                                    <p>{{ $province->description }}</p>
+                                    <ul class="info">
+                                    <li><i class="fa fa-user"></i> {{ $province->population }} Mil People</li>
+                                    <li><i class="fa fa-globe"></i> {{ $province->territory }} km2</li>
+                                    <li><i class="fa fa-home"></i> Rp {{ $province->avg_price }}</li>
+                                    </ul>
+                                    <div class="text-button">
+                                    <a href="about.html">Need Directions ? <i class="fa fa-arrow-right"></i></a>
+                                    </div>
+                                </div>
+                                </div>
                             </div>
-                            <p>Woox Travel is a professional Bootstrap 5 theme HTML CSS layout for your website. You can use this layout for your commercial work.</p>
-                            <ul class="info">
-                            <li><i class="fa fa-user"></i> 8.66 Mil People</li>
-                            <li><i class="fa fa-globe"></i> 41.290 km2</li>
-                            <li><i class="fa fa-home"></i> $1.100.200</li>
-                            </ul>
-                            <div class="text-button">
-                            <a href="about.html">Need Directions ? <i class="fa fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="item">
-                    <div class="row">
-                        <div class="col-lg-4 col-sm-5">
-                        <div class="image">
-                            <img src="assets/images/country-02.jpg" alt="">
-                        </div>
-                        </div>
-                        <div class="col-lg-8 col-sm-7">
-                        <div class="right-content">
-                            <h4>CARIBBEAN</h4>
-                            <span>North America</span>
-                            <div class="main-button">
-                            <a href="about.html">Explore More</a>
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
-                            <ul class="info">
-                            <li><i class="fa fa-user"></i> 44.48 Mil People</li>
-                            <li><i class="fa fa-globe"></i> 275.400 km2</li>
-                            <li><i class="fa fa-home"></i> $946.000</li>
-                            </ul>
-                            <div class="text-button">
-                            <a href="about.html">Need Directions ? <i class="fa fa-arrow-right"></i></a>
                             </div>
                         </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="item last-item">
-                    <div class="row">
-                        <div class="col-lg-4 col-sm-5">
-                        <div class="image">
-                            <img src="assets/images/country-03.jpg" alt="">
-                        </div>
-                        </div>
-                        <div class="col-lg-8 col-sm-7">
-                        <div class="right-content">
-                            <h4>FRANCE</h4>
-                            <span>Europe</span>
-                            <div class="main-button">
-                            <a href="about.html">Explore More</a>
-                            </div>
-                            <p>We hope this WoOx template is useful for you, please support us a <a href="https://paypal.me/templatemo" target="_blank">small amount of PayPal</a> to info [at] templatemo.com for our survival. We really appreciate your contribution.</p>
-                            <ul class="info">
-                            <li><i class="fa fa-user"></i> 67.41 Mil People</li>
-                            <li><i class="fa fa-globe"></i> 551.500 km2</li>
-                            <li><i class="fa fa-home"></i> $425.600</li>
-                            </ul>
-                            <div class="text-button">
-                            <a href="about.html">Need Directions ? <i class="fa fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
+                    @endforeach
 
                 </div>
             </div>
